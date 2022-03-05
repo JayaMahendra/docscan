@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:docscan/theme.dart';
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({Key key}) : super(key: key);
+  const AccountPage({Key? key}) : super(key: key);
 
   @override
   _AccountPageState createState() => _AccountPageState();

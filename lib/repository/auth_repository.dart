@@ -40,7 +40,7 @@ class AuthRepository {
     String baseUrl = "http://127.0.0.1:8000/api/me";
 
     try {
-      var response = await http.get(baseUrl, headers: {
+      var response = await http.get(Uri.parse(baseUrl), headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'applcation/json'
       });

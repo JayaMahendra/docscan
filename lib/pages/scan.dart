@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Scan extends StatefulWidget {
-  const Scan({Key key}) : super(key: key);
+  const Scan({Key? key}) : super(key: key);
 
   @override
   _ScanState createState() => _ScanState();

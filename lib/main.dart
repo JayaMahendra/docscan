@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:docscan/pages/login.dart';
+import 'package:docscan/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:docscan/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:docscan/repository/auth_repository.dart';
 import 'package:docscan/state/auth_state.dart';
 import 'package:docscan/pages/home.dart';
+import 'package:docscan/pages/login.dart';
+import 'package:docscan/pages/splash.dart';
 import 'blocs/Auth_bloc.dart';
 import 'event/auth_event.dart';
-import 'pages/login.dart';
 
 void main() {
   final AuthRepository authRepository = AuthRepository();
@@ -51,7 +53,9 @@ class MyApp extends StatelessWidget {
               authBloc: authBloc,
             );
           if (state is AuthFailed || state is LoginFailed)
-            return LoginPage(authBloc: authBloc);
+            return LoginPage(
+              authBloc: authBloc,
+            );
           if (state is AuthLoading)
             return Container(
               color: Colors.white,

@@ -1,14 +1,17 @@
+import 'package:docscan/blocs/Auth_bloc.dart';
 import 'package:docscan/pages/login.dart';
 import '../theme.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatelessWidget {
+  late final AuthBloc authBloc = authBloc;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: SafeArea(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,7 +24,7 @@ class Splash extends StatelessWidget {
                         width: 40,
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 15),
+                        margin: const EdgeInsets.only(left: 15),
                       ),
                       Text(
                         "Scanner App",
@@ -30,7 +33,7 @@ class Splash extends StatelessWidget {
                     ],
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 40, bottom: 20),
+                    padding: const EdgeInsets.only(top: 40, bottom: 20),
                     child: Image.asset("assets/images/undraw_splash.png"),
                   ),
                   Text("Get Started", style: desc),
@@ -41,15 +44,18 @@ class Splash extends StatelessWidget {
                     width: 500,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                          backgroundColor: Color(0xFF6777EF),
+                          backgroundColor: const Color(0xFF6777EF),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           )),
                       onPressed: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                        );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(
+                                authBloc: authBloc,
+                              ),
+                            ));
                       },
                       child: const Text(
                         "Next",

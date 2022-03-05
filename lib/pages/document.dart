@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:docscan/theme.dart';
 
 class Document extends StatefulWidget {
-  const Document({Key key}) : super(key: key);
+  const Document({Key? key}) : super(key: key);
 
   @override
   _DocumentState createState() => _DocumentState();

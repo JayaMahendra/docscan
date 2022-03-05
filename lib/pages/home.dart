@@ -1,16 +1,23 @@
+import 'package:docscan/blocs/Auth_bloc.dart';
 import 'package:docscan/pages/document.dart';
 import 'package:docscan/pages/scan.dart';
 import 'package:docscan/pages/settings.dart';
+import 'package:docscan/repository/auth_repository.dart';
 
 import '../theme.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  final AuthBloc authBloc;
+
+  const HomePage({Key? key, required this.authBloc}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final AuthRepository authRepository = AuthRepository();
+  AuthBloc get _authBloc => widget.authBloc;
   int _currentIndex = 0;
 
   void _onItemTapped(int index) {
@@ -21,8 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   final screen = [
     const Document(),
-    const Scan(),
-    const SettingPage(),
+    Scan(),
+    SettingPage(),
   ];
 
   @override

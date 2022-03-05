@@ -9,10 +9,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required this.authRepository}) : assert(authRepository != null);
 
-  @override
   AuthState get initialState => AuthInit();
 
-  @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if (event is AuthCheck) {
       yield AuthLoading();
@@ -43,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           yield AuthHasToken(token: login.data.token);
         }
       } catch (e) {
-        yield LoginFailed("login gagal");
+        yield LoginFailed("Login Gagal");
       }
     }
 
