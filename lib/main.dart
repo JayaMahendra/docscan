@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:docscan/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:docscan/constants.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:docscan/repository/auth_repository.dart';
 import 'package:docscan/state/auth_state.dart';
 import 'package:docscan/pages/home.dart';
 import 'package:docscan/pages/login.dart';
-import 'package:docscan/pages/splash.dart';
 import 'blocs/Auth_bloc.dart';
 import 'event/auth_event.dart';
 
@@ -42,27 +37,28 @@ class MyApp extends StatelessWidget {
         builder: (context, AuthState state) {
           if (state is AuthInit) {
             authBloc.add(AuthCheck());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is AuthHasToken || state is AuthData) {
+            return HomePage(
+              authBloc: authBloc,
+            );
+          }
+          if (state is AuthFailed || state is LoginFailed) {
+            return LoginPage(
+              authBloc: authBloc,
+            );
+          }
+          if (state is AuthLoading) {
             return Container(
-              child: Center(
+              color: Colors.white,
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             );
           }
-          if (state is AuthHasToken || state is AuthData)
-            return HomePage(
-              authBloc: authBloc,
-            );
-          if (state is AuthFailed || state is LoginFailed)
-            return LoginPage(
-              authBloc: authBloc,
-            );
-          if (state is AuthLoading)
-            return Container(
-              color: Colors.white,
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
 
           return Container();
         },
