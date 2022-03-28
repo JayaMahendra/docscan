@@ -5,7 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
   Future loginUser(String _email, String _password) async {
-    String baseUrl = "http://127.0.0.1:8000/api/auth/login";
+    // String baseUrl = "http://127.0.0.1:8000/api/auth/login";
+    var baseUrl = Uri.parse("http://127.0.0.1:8000/api/auth/login");
+    // String baseUrl = "http://10.0.2.2:8000/api/auth/login";
+    // var baseUrl =Uri.parse("http://10.0.2.2:8000/api/auth/login");
 
     try {
       var response = await http.post(baseUrl, body: {
@@ -21,8 +24,8 @@ class AuthRepository {
   }
 
   Future userLogout(String token) async {
-    String baseUrl = "http://127.0.0.1:8000/api/auth/logout";
-
+    // String baseUrl = "http://127.0.0.1:8000/api/auth/logout";
+  var baseUrl =Uri.parse("http://10.0.2.2:8000/api/auth/logout");
     try {
       var response = await http.post(baseUrl, headers: {
         'Authorization': 'Bearer $token',
@@ -69,6 +72,7 @@ class AuthRepository {
   Future unsetLocalToken() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences local = await _prefs;
-    local.setString("token_sanctum", null);
+    local.setString("token_sanctum", null.toString());
+    // local.setString("token_sanctum", toString());
   }
 }

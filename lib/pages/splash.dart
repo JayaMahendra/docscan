@@ -39,28 +39,30 @@ class Splash extends StatelessWidget {
                   Text("Get Started", style: desc),
                   Text("Lets Secure Your Important Documents", style: title),
                   const Padding(padding: EdgeInsets.only(top: 30)),
-                  Container(
-                    height: 50,
-                    width: 500,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                          backgroundColor: const Color(0xFF6777EF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          )),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(
-                                authBloc: authBloc,
-                              ),
-                            ));
-                      },
-                      child: const Text(
-                        "Next",
-                        style: TextStyle(
-                          color: Color(0xffffffff),
+                  SizedBox(
+                    child: Container(
+                      height: 50,
+                      width: 500,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: const Color(0xFF6777EF),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            )),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(
+                                  // authBloc: authBloc,
+                                ),
+                              ));
+                        },
+                        child: const Text(
+                          "Next",
+                          style: TextStyle(
+                            color: Color(0xffffffff),
+                          ),
                         ),
                       ),
                     ),

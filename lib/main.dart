@@ -7,18 +7,40 @@ import 'package:docscan/pages/login.dart';
 import 'blocs/Auth_bloc.dart';
 import 'event/auth_event.dart';
 
-void main() {
-  final AuthRepository authRepository = AuthRepository();
-  runApp(BlocProvider(
-    create: (context) {
-      return AuthBloc(authRepository: authRepository);
-    },
-    child: MyApp(
-      authRepository: authRepository,
-      authBloc: AuthBloc(authRepository: authRepository),
-    ),
-  ));
-}
+
+
+  void main() {
+    // runApp(MyApp());
+    // BlocOverrides.runZoned(() => runApp(MyApp(
+    //       authRepository: authRepository,
+    //       authBloc: AuthBloc(authRepository: authRepository),
+    //     )));
+    final AuthRepository authRepository = AuthRepository();
+
+    runApp(BlocProvider(
+      create: (context) {
+        return AuthBloc(authRepository: authRepository);
+      },
+      child: MyApp(
+        authRepository: authRepository,
+        authBloc: AuthBloc(authRepository: authRepository),
+      ),
+    ));
+  }
+
+
+//   }
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         theme: ThemeData(
+//           fontFamily: 'Poppins',
+//         ),
+//         home: HomePage());
+//   }
+
 
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
@@ -32,7 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocBuilder(
+      home: BlocBuilder<AuthBloc, AuthState>(
         bloc: authBloc,
         builder: (context, AuthState state) {
           if (state is AuthInit) {
@@ -43,12 +65,12 @@ class MyApp extends StatelessWidget {
           }
           if (state is AuthHasToken || state is AuthData) {
             return HomePage(
-              authBloc: authBloc,
+              // authBloc: authBloc,
             );
           }
           if (state is AuthFailed || state is LoginFailed) {
             return LoginPage(
-              authBloc: authBloc,
+              // authBloc: authBloc,
             );
           }
           if (state is AuthLoading) {
