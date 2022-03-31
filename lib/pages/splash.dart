@@ -70,3 +70,14 @@ class Splash extends StatelessWidget {
                 ]))));
   }
 }
+
+
+//  SizedBox(
+//                           width: MediaQuery.of(context).size.width - 40,
+//                           child: TextButton(
+//                             child: Text('test assets'),
+//                             onPressed: _testFromAssets,
+//                             style: TextButton.styleFrom(
+//                               primary: Colors.white,
+//                               backgroundColor: Colors.teal,
+//                               onSurface: Colors.grey,
