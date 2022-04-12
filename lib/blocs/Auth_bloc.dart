@@ -12,6 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         super(AuthInit()) {
     on<AuthCheck>(_onAuthCheck);
     on<LoginProcess>(_onAuthLoginProcess);
+    on<GetDataWithToken>(_onGetData);
     // on<AuthCheck>((event, emit) {});
   }
 
@@ -63,6 +64,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } catch (e) {
         emit(LoginFailed("Login Gagal"));
       }
+    }
+  }
+  void _onGetData(AuthEvent event, Emitter<AuthState> emit) async {
+    if (event is GetDataWithToken) {
+      emit(AuthLoading());
+
+      final user = await authRepository.getData(event.token);
+      emit(AuthData(email: user.email, name: user.name));
     }
   }
 }

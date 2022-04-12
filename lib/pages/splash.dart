@@ -54,7 +54,7 @@ class Splash extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => LoginPage(
-                                  // authBloc: authBloc,
+                                  authBloc: authBloc,
                                 ),
                               ));
                         },
