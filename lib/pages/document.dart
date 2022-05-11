@@ -1,5 +1,9 @@
+import 'package:docscan/blocs/docscan/docsan_bloc.dart';
+import 'package:docscan/repository/document_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:docscan/theme.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:docscan/model/document_model.dart';
 
 class Document extends StatefulWidget {
   const Document({Key? key}) : super(key: key);
@@ -9,63 +13,52 @@ class Document extends StatefulWidget {
 }
 
 class _DocumentState extends State<Document> {
-  @override
+  // data2 == null ? DataKosong()
+
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-          child: SingleChildScrollView(
-              child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Hello, Welcome Back', style: desc),
-            Container(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                'Your Document \nFiles',
-                style: title,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 5, 5, 5),
-              margin: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                  color: const Color(0x1a34395E),
-                  borderRadius: BorderRadius.circular(50)),
-              child: const TextField(
-                decoration: InputDecoration(
-                    icon: Icon(Icons.search),
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: "Search data",
-                    hintStyle: TextStyle(fontSize: 12)),
-              ),
-            ),
-            Image.asset("assets/images/undraw_home.png"),
-            Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
+    return
+        // RepositoryProvider(
+        // create: (_) => DocumentRepository(),
+        // child:
+        BlocProvider(
+            create: (context) => DocsanBloc()..add(const LoadDocsanEvent()),
+            child: Scaffold(
+                appBar: AppBar(
+                  title: const Text('The Docscan App'),
                 ),
-                Text(
-                  "You don't have any documents!",
-                  style: text,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                ),
-                Center(
-                    child: Text(
-                  "Scan now to save your documents and storage efficiency",
-                  style: desc,
-                  textAlign: TextAlign.center,
-                ))
-              ],
-            ),
-          ],
-        ),
-      ))),
-    );
+                body: BlocBuilder<DocsanBloc, DocsanState>(
+                    builder: (context, state) {
+                  if (state is DocsanLoadingState) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (state is DocsanLoadedState) {
+                    // List<Dcmn> documents;
+                    return ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          final docsans = state.docsans[index];
+                          return Card(
+                              child: ListTile(
+                                  leading: CircleAvatar(
+                            child: Text(docsans.nama),
+                          )));
+                        });
+                          // return Center(
+                          //   child: Text('tes'),
+                          // );
+
+                    // return ListView.builder(
+                    //     shrinkWrap: true,
+                    //     itemCount: state.documents.length,
+                    //     itemBuilder: (context, index) {
+                    // List<Dcmn> documents;
+                    //       return Card(child: Text(documents.nama));
+                    //     });
+                  } else {
+                    return const Text("Something went wrong! in list view");
+                  }
+                })));
   }
 }

@@ -65,7 +65,7 @@
 //   }
 // }
 
-import 'package:docscan/blocs/Auth_bloc.dart';
+import 'package:docscan/blocs/auth/Auth_bloc.dart';
 import 'package:docscan/pages/document.dart';
 import 'package:docscan/pages/scan.dart';
 import 'package:docscan/pages/settings.dart';

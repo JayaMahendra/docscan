@@ -1,19 +1,34 @@
+import 'package:docscan/blocs/docscan/docsan_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:docscan/repository/auth_repository.dart';
-import 'package:docscan/state/auth_state.dart';
+import 'package:docscan/blocs/auth/auth_state.dart';
 import 'package:docscan/pages/home.dart';
 import 'package:docscan/pages/login.dart';
-import 'blocs/Auth_bloc.dart';
-import 'event/auth_event.dart';
+import 'package:path/path.dart';
+import 'blocs/auth/Auth_bloc.dart';
+import 'blocs/auth/auth_event.dart';
 
 void main() {
   final AuthRepository authRepository = AuthRepository();
-  runApp(BlocProvider(
-    create: (context) {
-      return AuthBloc(authRepository: authRepository);
-    },
+  // final DocumentRepository documentRepository = DocumentRepository();
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => DocsanBloc()..add(LoadDocsanEvent())),
+      BlocProvider(
+        create: (context) => AuthBloc(authRepository: authRepository),
+        child: Container(),
+      )
+    ],
+    // child: child)
+    //   // MultiBlocProvider(
+    //   create: (context) {
+    //     // return DocsanBloc(_documentRepository: documentRepository);
+    //     return AuthBloc(authRepository: authRepository);
+    //   },
     child: MyApp(
+      // docsanBloc: DocsanBloc(documentRepository),
+      // documentRepository: documentRepository,
       authRepository: authRepository,
       authBloc: AuthBloc(authRepository: authRepository),
     ),
@@ -23,6 +38,8 @@ void main() {
 class MyApp extends StatelessWidget {
   final AuthRepository authRepository;
   final AuthBloc authBloc;
+  // final DocumentRepository documentRepository;
+  // final DocsanBloc docsanBloc;
 
   const MyApp({Key? key, required this.authRepository, required this.authBloc})
       : super(key: key);
